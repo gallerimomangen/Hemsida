@@ -1,0 +1,24 @@
+name: Deploy till gallerimomangen.se
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.thomaskrajewski.se
+          username: BaraKonst@gallerimomangen.se
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          server-dir: /gallerimomangen.se/
+          exclude: |
+            **/.git*
+            **/.git*/**
