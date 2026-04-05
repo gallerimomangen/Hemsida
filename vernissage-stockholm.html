@@ -17,7 +17,7 @@
   <meta property="og:description" content="Vernissage i Stockholm på Södermalm. Galleri Momangen visar samtida konst och arrangerar utställningar och events.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gallerimomangen.se/vernissage-stockholm">
-  <meta property="og:image" content="https://gallerimomangen.se/bilder/vernissage-stockholm-galleri-momangen.jpg">
+  <meta property="og:image" content="https://gallerimomangen.se/images/gallerimomangen-og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -211,6 +211,8 @@
       transition: opacity .15s ease;
     }
     .archive-event:hover { opacity: .72; }
+    a.archive-event-title { text-decoration: none; cursor: pointer; }
+    a.archive-event-title:hover { opacity: .65; }
     .archive-event-title {
       grid-column: 2; grid-row: 1;
       font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
@@ -649,15 +651,14 @@ function renderEvents() {
       item.className = 'archive-event';
       if (new Date(ev.date) >= today) { item.classList.add('upcoming'); }
 
-      var html = '<p class="archive-event-title">' + ev.title + '</p>';
+      var titleTag = ev.link
+        ? '<a class="archive-event-title" href="' + ev.link + '"' + (ev.link.indexOf('http') === 0 ? ' target="_blank"' : '') + '>' + ev.title + '</a>'
+        : '<p class="archive-event-title">' + ev.title + '</p>';
+      var html = titleTag;
       html += '<p class="archive-event-date">' + dayStr + '</p>';
       if (ev.artist) html += '<p class="archive-event-artist">' + ev.artist + '</p>';
       if (ev.desc)   html += '<p class="archive-event-desc">' + ev.desc + '</p>';
       if (ev.tag)    html += '<p class="archive-event-type">' + ev.tag + '</p>';
-      if (ev.link) {
-        var ctaLabel = ev.cta || 'L\u00e4s mer';
-        html += '<a class="archive-event-link" href="' + ev.link + '"' + (ev.link.indexOf('http') === 0 ? ' target="_blank"' : '') + '>' + ctaLabel + ' \u2192</a>';
-      }
 
       item.innerHTML = html;
       list.appendChild(item);
