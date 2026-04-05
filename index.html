@@ -20,7 +20,7 @@
   <meta property="og:description" content="Artistdrivet galleri på Södermalm. Utställningar, vernissage och samtida konst.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gallerimomangen.se">
-  <meta property="og:image" content="https://gallerimomangen.se/bilder/hero.jpg">
+  <meta property="og:image" content="https://gallerimomangen.se/images/gallerimomangen-og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -198,13 +198,10 @@
       font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
       color: var(--accent); font-weight: 700; margin-top: .65rem; opacity: .8;
     }
-    .archive-event-link {
-      grid-column: 2; grid-row: 5;
-      font-size: .75rem; color: var(--accent); text-decoration: none;
-      font-weight: 600; letter-spacing: .04em; margin-top: .5rem;
-      transition: opacity .2s;
+    a.archive-event-title {
+      text-decoration: none; cursor: pointer;
     }
-    .archive-event-link:hover { opacity: .7; }
+    a.archive-event-title:hover { opacity: .65; }
     .archive-event.upcoming {
       border-left: 3px solid var(--accent);
       padding-left: 1.2rem;
@@ -377,7 +374,7 @@
   <div class="container">
     <p class="section-label">Kalender</p>
     <div id="events-list"></div>
-    <a id="past-toggle" href="vernissage-stockholm.html">Visa tidigare utställningar</a>
+    <a id="past-toggle" href="/vernissage-stockholm.html">Visa tidigare utställningar →</a>
   </div>
 </section>
 
@@ -559,46 +556,27 @@ function renderEvents() {
   var list = document.getElementById('events-list');
   list.innerHTML = '';
 
-  var sorted = EVENTS.slice().sort(function(a, b) {
-    return new Date(a.date) - new Date(b.date);
-  });
+  var sorted = EVENTS.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+  var future = sorted.filter(function(e) { return new Date(e.date) >= today; });
 
-  var future = sorted.filter(function(e) {
-    return new Date(e.date) >= today;
-  });
-
-  var past = sorted.filter(function(e) {
-    return new Date(e.date) < today;
-  });
-
-  var futureToShow = future.slice(0, 3);
-  var pastToShow = past.slice(-3).reverse();
-
-  var toShow = futureToShow.concat(pastToShow);
-
-  if (!toShow.length) {
+  if (!future.length) {
     list.innerHTML = '<p style="color:var(--muted);font-size:.95rem;padding:2rem 0">Inga kommande events just nu.</p>';
     return;
   }
 
-  toShow.forEach(function(ev) {
+  future.forEach(function(ev) {
     var d = new Date(ev.date + 'T12:00:00');
-    var isPast = d < today;
     var dayStr = d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
-
     var item = document.createElement('div');
-    item.className = 'archive-event';
-    if (!isPast) { item.classList.add('upcoming'); }
-
-    var html = '<p class="archive-event-title">' + ev.title + '</p>';
+    item.className = 'archive-event upcoming';
+    var titleTag = ev.link
+      ? '<a class="archive-event-title" href="' + ev.link + '"' + (ev.link.indexOf('http') === 0 ? ' target="_blank"' : '') + '>' + ev.title + '</a>'
+      : '<p class="archive-event-title">' + ev.title + '</p>';
+    var html = titleTag;
     html += '<p class="archive-event-date">' + dayStr + '</p>';
     if (ev.artist) html += '<p class="archive-event-artist">' + ev.artist + '</p>';
     if (ev.desc)   html += '<p class="archive-event-desc">' + ev.desc + '</p>';
     if (ev.tag)    html += '<p class="archive-event-type">' + ev.tag + '</p>';
-    if (ev.link) {
-      var ctaLabel = ev.cta || 'L\u00e4s mer';
-      html += '<a class="archive-event-link" href="' + ev.link + '"' + (ev.link.indexOf('http') === 0 ? ' target="_blank"' : '') + '>' + ctaLabel + ' \u2192</a>';
-    }
     item.innerHTML = html;
     list.appendChild(item);
   });
