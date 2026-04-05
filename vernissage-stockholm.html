@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+	<!--
+  	Ett samarbete mellan
+  	Galleri Momangen & Thomas Krajewski
+  	thomaskrajewski.se
+	-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vernissage Stockholm – Galleri Momangen</title>
+  <meta name="description" content="Vernissage i Stockholm på Södermalm. Galleri Momangen visar samtida konst och arrangerar utställningar och events.">
+  <meta name="author" content="Galleri Momangen">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gallerimomangen.se/vernissage-stockholm">
+  <meta property="og:title" content="Vernissage Stockholm – Galleri Momangen">
+  <meta property="og:description" content="Vernissage i Stockholm på Södermalm. Galleri Momangen visar samtida konst och arrangerar utställningar och events.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gallerimomangen.se/vernissage-stockholm">
+  <meta property="og:image" content="https://gallerimomangen.se/bilder/vernissage-stockholm-galleri-momangen.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ArtGallery",
+    "name": "Galleri Momangen",
+    "description": "Artistdrivet galleri på Södermalm i Stockholm med fokus på samtida konst, utställningar och vernissage.",
+    "image": "https://gallerimomangen.se/bilder/vernissage-stockholm-galleri-momangen.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kocksgatan 23",
+      "addressLocality": "Stockholm",
+      "postalCode": "116 24",
+      "addressCountry": "SE"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 59.312, "longitude": 18.074 },
+    "url": "https://gallerimomangen.se",
+    "sameAs": [
+      "https://www.instagram.com/gallerimomangen",
+      "https://www.facebook.com/momangen",
+      "https://www.linkedin.com/company/galleri-momangen/"
+    ]
+  }
+  </script>
+
+  
+
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Galleri MOM" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="preload" as="image" href="/bilder/vernissage-stockholm-galleri-momangen.jpg" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream:  #f9f6f1;
+      --paper:  #f0ebe0;
+      --ink:    #1a1915;
+      --muted:  #6b6660;
+      --accent: #FF5A1F;
+      --border: rgba(26,25,21,.12);
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--ink); font-family: var(--sans); font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: .01em; overflow-x: hidden; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(249,246,241,.96); backdrop-filter: blur(10px);
+    }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; color: var(--ink); }
+    .nav-logo svg { height: 42px; width: auto; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 1rem; letter-spacing: .06em; text-transform: uppercase;
+      text-decoration: none; color: var(--muted); font-weight: 500;
+      padding-bottom: 2px; border-bottom: 2px solid transparent;
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .nav-links a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+    .nav-burger {
+      display: none; cursor: pointer; background: none;
+      border: 1.5px solid var(--ink); color: var(--ink);
+      font-family: var(--sans); font-size: .72rem; letter-spacing: .12em;
+      text-transform: uppercase; padding: .35rem .75rem; border-radius: 3px;
+      transition: background .2s, color .2s;
+    }
+    .nav-burger.open { background: var(--ink); color: var(--cream); }
+    .nav-mobile {
+      display: none; position: fixed; top: 56px; left: 0; right: 0; z-index: 99;
+      background: var(--cream); border-bottom: 2px solid var(--ink);
+      padding: 2.5rem 2rem 3rem; flex-direction: column; gap: 0;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 1.6rem; font-family: var(--serif); font-weight: 600;
+      text-decoration: none; color: var(--ink); padding: 1rem 0;
+      border-bottom: none; display: block;
+      transition: color .25s ease, transform .25s ease;
+    }
+    .nav-mobile a:hover { color: var(--accent); transform: translateX(4px); }
+    .nav-mobile a:active { transform: scale(.98); opacity: .75; }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    /* HERO */
+    .hero {
+      min-height: 70vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 8rem 2rem 5rem; position: relative;
+      background-image: url('images/Fran_utstallningen_Aint_No_Disco_Moa_Larsdotter_Galleri_Momangen_2025_Foto_Thomas_Krajewski.jpg');
+      background-size: cover; background-position: center;
+    }
+    .hero::before { content: ''; position: absolute; inset: 0; background: rgba(249,246,241,.58); }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.8rem; font-weight: 700; }
+    .hero-logo { width: min(320px, 60vw); height: auto; margin-bottom: 2.2rem; }
+    .hero-h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.2rem; color: var(--ink); }
+    .hero-sub { font-size: 1.05rem; color: var(--ink); max-width: 30rem; font-weight: 400; line-height: 1.6; }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--ink); opacity: .6; text-decoration: none; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      transition: opacity .2s;
+    }
+    .hero-scroll:hover { opacity: 1; }
+    .hero-scroll::after { content: "↓"; font-size: 1rem; color: var(--accent); display: block; margin-top: .4rem; animation: scrollBounce 1.6s ease-in-out infinite; }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(6px);opacity:.6} }
+
+    /* SHARED */
+    section { padding: 5.5rem 0; }
+    .container { max-width: 940px; margin: 0 auto; padding: 0 2rem; }
+    .section-label { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; font-weight: 700; }
+    .section-label::after { content: ''; flex: 1; height: 2px; background: var(--ink); }
+
+    .archive-intro {
+      display: block;
+      width: 100%;
+      margin: 0 0 24px 0 !important;
+      font-family: var(--serif);
+      font-size: 28px !important;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      text-align: center !important;
+      white-space: nowrap;
+    }
+    .mobile-break { display: none; }
+    .archive-intro-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(26,25,21,.12);
+      margin: 0 0 32px 0;
+    }
+    .gallery-link { color: var(--accent); text-decoration: none; font-weight: 500; letter-spacing: .02em; }
+    .gallery-link:hover { text-decoration: underline; }
+    .archive-actions {
+      display: flex; align-items: center; justify-content: flex-start;
+      gap: 24px; margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(26,25,21,.08);
+    }
+    .archive-gallery-btn { display: inline-block; }
+    .archive-more-btn {
+      background: none; border: 1.5px solid var(--muted); color: var(--muted);
+      font-family: var(--sans); font-size: .8rem; letter-spacing: .1em;
+      font-weight: 700; text-transform: uppercase; padding: .7rem 1.4rem;
+      cursor: pointer; border-radius: 3px;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .archive-more-btn:hover { border-color: var(--ink); color: var(--ink); }
+    @media (max-width: 720px) { .archive-actions { flex-direction: column; align-items: flex-start; gap: 1.2rem; } }
+
+    /* ARCHIVE */
+    .archive-year-heading {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      letter-spacing: -.01em;
+      line-height: 1;
+      padding: 2.2rem 0 .8rem;
+      margin-top: 1.6rem;
+      border-top: none;
+    }
+    .archive-year-heading:first-of-type { padding-top: 0; margin-top: 0; }
+    .archive-event {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      column-gap: 2.8rem;
+      padding: 1.7rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: opacity .15s ease;
+    }
+    .archive-event:hover { opacity: .72; }
+    .archive-event-title {
+      grid-column: 2; grid-row: 1;
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+      line-height: 1.2; color: var(--ink);
+    }
+    .archive-event-date {
+      grid-column: 1; grid-row: 1 / span 5;
+      font-size: .9rem; font-weight: 600; font-family: var(--sans); color: var(--ink);
+      letter-spacing: .02em; line-height: 1.5; padding-top: .3rem;
+    }
+    .archive-event-artist {
+      grid-column: 2; grid-row: 2;
+      font-size: .92rem; font-family: var(--serif); font-style: italic;
+      color: var(--muted); line-height: 1.55; margin-top: .28rem;
+    }
+    .archive-event-desc {
+      grid-column: 2; grid-row: 3;
+      font-size: .88rem; color: var(--muted); line-height: 1.65;
+      max-width: 38rem; margin-top: .25rem;
+    }
+    .archive-event-type {
+      grid-column: 2; grid-row: 4;
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 700; margin-top: .65rem; opacity: .8;
+    }
+    .archive-event.upcoming {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.2rem;
+      background: rgba(255,90,31,.03);
+    }
+    .archive-event.upcoming .archive-event-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .archive-event.upcoming .archive-event-date {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .archive-event.upcoming::before {
+      content: "Kommande";
+      display: inline-block;
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); font-weight: 700; margin-bottom: .45rem;
+    }
+
+    /* ABOUT / TEXT SECTIONS */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.8fr; gap: 5rem; align-items: start; }
+    .about-heading { font-family: var(--serif); font-size: 3.8rem; font-weight: 700; line-height: 1.0; }
+    .about-heading em { font-style: italic; color: var(--muted); font-weight: 400; }
+    .about-body p { font-size: 1.05rem; color: var(--muted); margin-bottom: 1.3rem; line-height: 1.6; max-width: 34rem; }
+    .about-year { font-family: var(--serif); font-size: 1.1rem; color: var(--accent); margin-top: 1.5rem; font-weight: 600; }
+
+    /* CONTACT */
+    .contact-cta { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--border); display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .contact-btn { display: inline-block; text-decoration: none; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: .7rem 1.4rem; border-radius: 3px; transition: all .2s; }
+    .contact-btn.primary { background: var(--accent); color: #fff; }
+    .contact-btn.primary:hover { background: #e04a10; }
+    .contact-btn.secondary { background: none; border: 1.5px solid var(--ink); color: var(--ink); }
+    .contact-btn.secondary:hover { background: var(--ink); color: var(--cream); }
+
+    /* CONTACT FORM */
+    .cf-wrap { max-width: 540px; margin: 0 auto; }
+    .cf-field {
+      display: flex; flex-direction: column; gap: .5rem;
+      margin-bottom: 2.4rem;
+    }
+    .cf-field label {
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      font-weight: 600; color: var(--ink); opacity: .8;
+    }
+    .cf-field input,
+    .cf-field select,
+    .cf-field textarea {
+      background: transparent;
+      border: 1px solid rgba(26,25,21,.25);
+      border-radius: 8px;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: .95rem;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: .9rem 1rem;
+      outline: none;
+      width: 100%;
+      transition: border-color .2s ease, background .2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .cf-field input:hover,
+    .cf-field select:hover,
+    .cf-field textarea:hover { border-color: rgba(26,25,21,.45); }
+    .cf-field input:focus,
+    .cf-field select:focus,
+    .cf-field textarea:focus {
+      border-color: var(--ink);
+      background: rgba(26,25,21,.035);
+    }
+    .cf-field select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231a1915'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.2rem;
+    }
+    .cf-field textarea { resize: vertical; min-height: 140px; }
+    .cf-field input::placeholder,
+    .cf-field textarea::placeholder { color: var(--muted); opacity: .45; }
+    /* honeypot — hidden from humans */
+    .cf-honeypot { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+    .cf-turnstile { margin: 2.8rem 0 1.8rem; }
+    .cf-submit {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      min-width: 200px;
+      padding: 1.05rem 3.4rem;
+      border-radius: 3px;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      transition: background .2s, transform .15s ease;
+    }
+    .cf-submit:hover { background: #e04a10; transform: translateY(-1px); }
+    .cf-submit:active { transform: translateY(0); }
+    .cf-submit:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+    .cf-status { margin-top: 1.8rem; display: none; }
+    .cf-status.success {
+      color: var(--ink); font-family: var(--serif); font-style: italic; font-size: 1.15rem;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .cf-status.success.visible { opacity: 1; transform: translateY(0); }
+    .cf-status.error { color: var(--accent); font-size: .88rem; }
+
+    #kontakt { padding-top: 6rem; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: var(--cream); padding: 3.5rem 3rem; }
+    .footer-inner { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; align-items: start; }
+    .footer-tagline { font-family: var(--serif); font-size: 2rem; font-style: italic; color: var(--cream); font-weight: 400; line-height: 1.2; }
+    .footer-block h4 { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: .8rem; font-weight: 700; }
+    .footer-block a, .footer-block p { font-size: .88rem; color: rgba(255,255,255,.6); text-decoration: none; display: block; line-height: 1.9; transition: color .2s; }
+    .footer-block a:hover { color: #fff; }
+    .footer-bottom { max-width: 940px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.12); font-size: .72rem; color: rgba(255,255,255,.35); letter-spacing: .06em; }
+
+    /* MOBILE */
+    @media (max-width: 720px) {
+      nav { padding: .85rem 1.4rem; }
+      .nav-links { display: none; }
+      .nav-burger { display: block; }
+      .container { padding: 0 1.25rem; }
+      .archive-intro { white-space: normal; }
+      .mobile-break { display: inline; }
+      .archive-year-heading { font-size: 1.55rem; padding: 2.2rem 0 .65rem; margin-top: 2rem; }
+      .archive-event { display: flex; flex-direction: column; gap: 0; padding: 1.15rem 0; }
+      .archive-event-date { order: -1; font-size: .78rem; font-weight: 600; color: var(--ink); margin-bottom: .3rem; padding-top: 0; }
+      .archive-event-title { order: 0; font-size: 1.28rem; line-height: 1.22; margin-bottom: .1rem; }
+      .archive-event-artist { order: 1; font-size: .88rem; margin-top: .15rem; }
+      .archive-event-desc { order: 2; font-size: .84rem; line-height: 1.6; margin-top: .22rem; max-width: 100%; }
+      .archive-event-type { order: 3; margin-top: .5rem; font-size: .6rem; }
+      .archive-event.upcoming { padding-left: .8rem; }
+      .cf-wrap { max-width: 100%; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-heading { font-size: 2.8rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav aria-label="Huvudmeny">
+  <a class="nav-logo" href="/">
+    <svg viewBox="0 0 785 462" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M483.695 246.12V45.9199H550.335L574.695 133.56L586.175 179.2H586.735C591.962 157.173 595.695 141.96 597.935 133.56L622.575 45.9199H689.775V246.12H644.415V145.32L645.255 105.28H644.695C640.029 125.253 636.949 137.667 635.455 142.52L606.615 246.12H565.735L537.175 142.8L527.935 105.28H527.375C527.935 126.747 528.215 140.187 528.215 145.6V246.12H483.695Z" fill="currentColor"/>
+      <path d="M365.518 210.56C381.198 210.56 393.145 204.68 401.358 192.92C409.758 180.973 413.958 165.48 413.958 146.44C413.958 127.4 409.758 111.907 401.358 99.96C393.145 88.0133 381.198 82.04 365.518 82.04C350.025 82.04 337.985 88.0133 329.398 99.96C320.998 111.907 316.798 127.4 316.798 146.44C316.798 165.293 320.998 180.693 329.398 192.64C337.985 204.587 350.025 210.56 365.518 210.56ZM437.198 221.48C419.092 241.08 395.105 250.88 365.238 250.88C335.372 250.88 311.385 241.08 293.278 221.48C275.358 201.88 266.398 176.867 266.398 146.44C266.398 116.013 275.358 91 293.278 71.4C311.385 51.8 335.372 42 365.238 42C395.105 42 419.092 51.8 437.198 71.4C455.305 91 464.358 116.013 464.358 146.44C464.358 176.867 455.305 201.88 437.198 221.48Z" fill="currentColor"/>
+      <path d="M41 246.12V45.9199H107.64L132 133.56L143.48 179.2H144.04C149.267 157.173 153 141.96 155.24 133.56L179.88 45.9199H247.08V246.12H201.72V145.32L202.56 105.28H202C197.333 125.253 194.253 137.667 192.76 142.52L163.92 246.12H123.04L94.48 142.8L85.24 105.28H84.68C85.24 126.747 85.52 140.187 85.52 145.6V246.12H41Z" fill="currentColor"/>
+      <path d="M738.11 59.3262C734.183 63.1087 729.479 65 724 65C718.521 65 713.817 63.1087 709.89 59.3262C705.963 55.4492 704 50.721 704 45.1418C704 39.5626 705.963 34.8345 709.89 30.9574C713.817 26.9858 718.521 25 724 25C729.479 25 734.183 26.9858 738.11 30.9574C742.037 34.8345 744 39.5626 744 45.1418C744 50.721 742.037 55.4492 738.11 59.3262ZM716.74 52.9433C718.566 55.0236 720.986 56.0638 724 56.0638C727.014 56.0638 729.434 55.0236 731.26 52.9433C733.178 50.8629 734.137 48.2624 734.137 45.1418C734.137 42.0213 733.178 39.3735 731.26 37.1986C729.434 35.0236 727.014 33.9362 724 33.9362C720.986 33.9362 718.566 35.0236 716.74 37.1986C714.913 39.3735 714 42.0213 714 45.1418C714 48.2624 714.913 50.8629 716.74 52.9433Z" fill="#FF5A1F"/>
+      <path d="M628.191 428.906V352.184H643.965L669.504 394.998C670.219 396.214 671.006 397.716 671.864 399.505C672.794 401.293 673.51 402.795 674.01 404.012L674.869 405.728H675.083C674.797 400.435 674.654 395.999 674.654 392.423V352.184H689.999V428.906H674.976L648.794 386.521C648.078 385.305 647.256 383.838 646.326 382.121C645.396 380.333 644.68 378.831 644.18 377.615L643.321 375.898H643.107C643.393 381.263 643.536 385.734 643.536 389.311V428.906H628.191Z" fill="currentColor"/>
+      <path d="M554.461 428.906V352.184H610.903V365.275H570.02V382.443H605.86V395.213H570.02V415.922H611.225V428.906H554.461Z" fill="currentColor"/>
+      <path d="M525.638 428.907L525.102 418.606H524.887C520.166 426.546 512.976 430.516 503.319 430.516C492.088 430.516 483.11 426.797 476.386 419.357C469.733 411.917 466.406 402.403 466.406 390.814C466.406 377.651 470.591 367.207 478.961 359.481C485.399 353.615 493.626 350.682 503.641 350.682C513.012 350.682 520.488 353.007 526.067 357.657C531.719 362.307 535.188 368.53 536.476 376.328H521.239C520.309 372.465 518.377 369.389 515.444 367.1C512.511 364.739 508.684 363.559 503.963 363.559C497.024 363.559 491.659 366.098 487.867 371.177C484.147 376.256 482.287 382.802 482.287 390.814C482.287 398.754 484.219 405.264 488.082 410.343C492.016 415.422 497.238 417.962 503.748 417.962C509.471 417.962 514.192 416.209 517.912 412.704C521.632 409.127 523.492 405.085 523.492 400.579V400.149H505.036V388.131H537.334V428.907H525.638Z" fill="currentColor"/>
+      <path d="M390.641 428.906V352.184H406.414L431.953 394.998C432.668 396.214 433.455 397.716 434.313 399.505C435.243 401.293 435.959 402.795 436.46 404.012L437.318 405.728H437.533C437.246 400.435 437.103 395.999 437.103 392.423V352.184H452.448V428.906H437.425L411.243 386.521C410.528 385.305 409.705 383.838 408.775 382.121C407.845 380.333 407.13 378.831 406.629 377.615L405.771 375.898H405.556C405.842 381.263 405.985 385.734 405.985 389.311V428.906H390.641Z" fill="currentColor"/>
+      <path d="M309.121 428.906L335.84 352.184H351.935L378.976 428.906H362.773L357.623 412.596H329.938L324.895 428.906H309.121ZM340.454 378.58L333.586 400.685H353.867L346.999 378.58L343.888 366.777H343.673C342.385 371.928 341.312 375.862 340.454 378.58Z" fill="currentColor"/>
+      <path d="M220.012 428.906V352.184H241.902L252.74 390.706C253.526 393.567 254.313 396.751 255.1 400.256C255.959 403.69 256.602 406.408 257.032 408.411L257.568 411.416H257.783C259.142 404.047 260.716 397.144 262.504 390.706L273.342 352.184H295.554V428.906H281.068V384.911L281.712 369.03H281.497C280.352 375.039 279.244 379.904 278.171 383.624L264.972 428.906H250.057L237.18 383.624L233.854 369.03H233.639C234.069 375.469 234.283 380.762 234.283 384.911V428.906H220.012Z" fill="currentColor"/>
+      <path d="M195.162 419.464C188.438 426.904 179.496 430.624 168.336 430.624C157.177 430.624 148.199 426.904 141.403 419.464C134.679 411.953 131.316 402.367 131.316 390.707C131.316 379.046 134.679 369.46 141.403 361.949C148.199 354.438 157.177 350.682 168.336 350.682C179.496 350.682 188.438 354.438 195.162 361.949C201.887 369.46 205.249 379.046 205.249 390.707C205.249 402.367 201.887 411.953 195.162 419.464ZM152.67 410.236C156.39 415.315 161.648 417.855 168.444 417.855C175.24 417.855 180.426 415.351 184.003 410.343C187.58 405.264 189.368 398.719 189.368 390.707C189.368 382.695 187.58 376.149 184.003 371.07C180.426 365.991 175.24 363.451 168.444 363.451C161.648 363.451 156.39 365.991 152.67 371.07C149.022 376.149 147.197 382.695 147.197 390.707C147.197 398.647 149.022 405.157 152.67 410.236Z" fill="currentColor"/>
+      <path d="M41 428.906V352.184H62.8901L73.7278 390.706C74.5147 393.567 75.3016 396.751 76.0885 400.256C76.9469 403.69 77.5907 406.408 78.02 408.411L78.5565 411.416H78.7711C80.1303 404.047 81.7041 397.144 83.4925 390.706L94.3302 352.184H116.542V428.906H102.056V384.911L102.7 369.03H102.485C101.341 375.039 100.232 379.904 99.1589 383.624L85.9605 428.906H71.0452L58.1687 383.624L54.8422 369.03H54.6276C55.0569 375.469 55.2715 380.762 55.2715 384.911V428.906H41Z" fill="currentColor"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#kalender">Kommande event</a></li>
+    <li><a href="/#galleri">Galleri</a></li>
+    <li><a href="/#om-oss">Om oss</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Öppna meny" aria-expanded="false">Meny</button>
+</nav>
+
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobilmeny">
+  <a href="/#kalender">Kommande event</a>
+  <a href="/#galleri">Galleri</a>
+  <a href="/#om-oss">Om oss</a>
+  <a href="#kontakt">Kontakt</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-h1">Vernissage i Stockholm<br><span style="font-style:italic;font-weight:400;color:var(--muted);">Galleri Momangen</span></h1>
+  <p class="hero-sub" style="font-size:1.3rem;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:.01em;max-width:36rem;line-height:1.4;margin-top:.5rem;">En plats där konst händer. Inte bara hänger.</p>
+  <a class="hero-scroll" href="#kommande-vernissage">Kommande event</a>
+</section>
+
+<!-- KOMMANDE EVENT -->
+<section id="kommande-vernissage" style="background:var(--cream);">
+  <div class="container">
+    <p class="section-label">Vernissage och utställningar</p>
+    <h2 class="archive-intro">Det som händer och det som har hänt<span class="mobile-break"><br></span> på Galleri Momangen.</h2>
+    <div class="archive-intro-divider"></div>
+    <div id="events-list"></div>
+    <div class="archive-actions">
+      <a href="/galleri.html" class="contact-btn primary archive-gallery-btn">Se bilder från tidigare utställningar →</a>
+      <button id="past-toggle" class="archive-more-btn" style="display:none;">Visa fler utställningar</button>
+    </div>
+  </div>
+</section>
+
+<!-- VAD ÄR VERNISSAGE -->
+<section style="background:var(--paper);">
+  <div class="container">
+    <p class="section-label">Om vernissage</p>
+    <div class="about-grid reveal">
+      <h2 class="about-heading">Vad är<br><em>vernissage?</em></h2>
+      <div class="about-body">
+        <p>Vernissage är öppningen av en konstutställning där besökare får möjlighet att möta konstnärer, ta del av nya verk och uppleva konsten i ett socialt sammanhang.</p>
+        <p>Det är kvällen då utställningen presenteras för första gången — för vänner, kollegor, konstintresserade och nyfikna. En vernissage är lika mycket ett möte som en upplevelse.</p>
+        <p>På Galleri Momangen i Stockholm är vernissagen en central del av vår verksamhet. Vi tror på konst som sker i realtid, i närvaro av de som skapar och de som ser.</p>
+        <p>Letar du efter vernissage i Stockholm idag eller i helgen? Galleri Momangen publicerar löpande kommande vernissage och utställningar på Södermalm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OM GALLERI MOMANGEN -->
+<section style="background:var(--cream);">
+  <div class="container">
+    <p class="section-label">Galleri Momangen</p>
+    <div class="about-grid reveal">
+      <h2 class="about-heading">Artistdrivet<br><em>sedan 2010</em></h2>
+      <div class="about-body">
+        <p>Galleri Momangen är ett <a href="/vernissage-stockholm.html">konstgalleri i Stockholm</a> som visar samtida konst genom utställningar, vernissage och events på Södermalm.</p>
+        <p>Sedan 2010 har vi varit en mötesplats för konstnärer, kreatörer och publik — ett rum där konst händer utan filter och utan avstånd.</p>
+        <p class="about-year">Kocksgatan 23, 116 24 Stockholm</p>
+        <p style="margin-top:1.5rem;">
+          <!-- a href="/" style="color:var(--accent);text-decoration:none;font-weight:500;">← Tillbaka till galleriet</a -->
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--paper);">
+  <div class="container reveal">
+    <p class="section-label">Samarbeta</p>
+    <div class="about-grid">
+      <h2 class="about-heading">Vill du<br><em>ställa ut på Galleri Momangen?</em></h2>
+      <div class="about-body">
+        <p>Vi välkomnar förfrågningar från konstnärer och kreatörer som vill ställa ut eller samarbeta med Galleri Momangen i Stockholm. Skicka din förfrågan – vi svarar löpande.</p>
+        <div class="contact-cta" style="border-top:none;padding-top:0;margin-top:1.5rem;">
+          <a class="contact-btn primary" href="#kontakt">Kontakta oss</a>
+          <a class="contact-btn secondary" href="https://www.instagram.com/gallerimomangen" target="_blank">Följ oss på Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKTFORMULÄR -->
+<section id="kontakt" style="background:var(--paper);">
+  <div class="container">
+    <p class="section-label">Kontakt</p>
+    <div class="cf-wrap">
+    <form id="contact-form" action="https://formspree.io/f/xojpezpo" method="POST" novalidate style="position:relative;">
+
+          <!-- Honeypot — dölj för humans -->
+          <div class="cf-honeypot" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-name">Namn</label>
+            <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder="Ditt namn">
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-email">E-post</label>
+            <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="din@epost.se">
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-type">Ämne</label>
+            <select id="cf-type" name="type">
+              <option value="" disabled selected>Välj…</option>
+              <option value="Ställa ut">Ställa ut</option>
+              <option value="Samarbeta">Samarbeta</option>
+              <option value="Press / media">Press / media</option>
+              <option value="Övrigt">Övrigt</option>
+            </select>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-message">Meddelande</label>
+            <textarea id="cf-message" name="message" required placeholder="Skriv ditt meddelande här…"></textarea>
+          </div>
+
+          <!-- Cloudflare Turnstile -->
+          <div class="cf-turnstile">
+            <div class="cf-turnstile-widget" data-sitekey="0x4AAAAAACxr0xfTxguaeT7S" data-theme="light" data-size="flexible"></div>
+          </div>
+
+          <button type="submit" class="cf-submit" id="cf-submit">Skicka</button>
+
+          <div class="cf-status success" id="cf-success">Tack — vi hör av oss.</div>
+          <div class="cf-status error" id="cf-error">Något gick fel. Försök igen.</div>
+        </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-tagline">Konst utan avstånd</p>
+    </div>
+    <div class="footer-block">
+      <h4>Hitta oss</h4>
+      <p>Kocksgatan 23<br>116 24 Stockholm</p>
+    </div>
+    <div class="footer-block">
+      <h4>Följ oss</h4>
+      <a href="https://www.instagram.com/gallerimomangen" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/momangen" target="_blank">Facebook</a>
+      <a href="https://www.linkedin.com/company/galleri-momangen/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">Galleri Momangen — Konstgalleri på Södermalm, Stockholm © 2026</div>
+</footer>
+
+<script>
+var EVENTS = [
+  { date: "2026-10-01", dateLabel: "30 sep–4 okt 2026", title: "Kommande utställning", artist: "", desc: "Information publiceras löpande.", tag: "Utställning", cta: "", link: "" },
+  { date: "2026-09-25", dateLabel: "25–27 september 2026", title: "Utställning – IOH", artist: "IOH", desc: "", tag: "Utställning", cta: "", link: "" },
+  { date: "2026-05-30", dateLabel: "Slutet av maj 2026", title: "Vernissage", artist: "", desc: "Datum meddelas. Mer information kommer.", tag: "Vernissage", cta: "", link: "" },
+  { date:"2026-01-31", title:"Pre-listening session – Mayhem", artist:"", desc:"", tag:"Event" },
+  { date:"2025-11-01", dateLabel:"1–2 november 2025", title:"Vernissage – Grupputställning", artist:"ACE, ANCE, BRUCE, CHEAT, EDGE, MEZR, KAOS", desc:"Vernissage lördag kl 13–21. Utställning söndag kl 13–17.", tag:"Utställning" },
+  { date:"2025-04-04", dateLabel:"4–6 april 2025", title:"Koben på Momangen #5 – Koben", artist:"", desc:"", tag:"Utställning" },
+  { date:"2025-03-14", dateLabel:"14–16 mars 2025", title:"Ain't No Disco – Moa Larsdotter Persson", artist:"", desc:"", tag:"Utställning" },
+  { date:"2025-02-28", title:"Seaweed Rhythm – Vinyl Release – YOBA", artist:"Zlene, Simon Kiisk", desc:"kl 20–01", tag:"Event" },
+  { date:"2024-12-14", title:"Mayhem 40 Years", artist:"", desc:"", tag:"Event" },
+  { date:"2024-04-13", title:"Skivmässa – Galleri Momangen", artist:"", desc:"kl 12–18", tag:"Marknad" },
+  { date:"2024-04-02", title:"Vernissage – DYMOSTHLM", artist:"", desc:"", tag:"Utställning" },
+  { date:"2024-03-12", title:"Skivmässa – Galleri Momangen", artist:"", desc:"", tag:"Marknad" },
+  { date:"2023-11-30", title:"Jul-loppis – Galleri Momangen", artist:"", desc:"", tag:"Marknad" },
+  { date:"2023-11-19", title:"Heavy Metal Market", artist:"", desc:"", tag:"Marknad" },
+  { date:"2023-10-27", dateLabel:"27–28 oktober 2023", title:"Höstutställning – Grupputställning", artist:"Kajsa Bergström, Sofia Toborg, Isabel Milano, Beatrice Westerlund, Erik Veas, IOR, GOODMOOD, EDGE, Ola Brising m.fl.", desc:"", tag:"Utställning" },
+  { date:"2023-05-26", title:"Gamla Bettan – Grupputställning / pop-up", artist:"Finsta, Uzi, Que, Triss, Kris, Sag, Nisk, Fits, Lumos, Elie, Livet, Slur, Kras, Waffle, Skil, Seksie m.fl.", desc:"", tag:"Utställning" },
+  { date:"2023-04-28", title:"Traffic Blocking – Mark Andersson / IOH", artist:"", desc:"", tag:"Utställning" },
+  { date:"2023-03-12", title:"Skisskväll – Writers bench and a table", artist:"", desc:"", tag:"Event" },
+  { date:"2022-12-12", dateLabel:"12–18 december 2022", title:"Cutting Edges – Grupputställning", artist:"ACE, AKAY, ASHER, DETCH, DISEY, DUDES, EDGE, GOODMOOD, Carolina Falkholt, JASON, KAOS, KLIVE, METAL, MEZAR, PASHA, PIKE, WHO?, ZACK, ZIGGY", desc:"", tag:"Utställning" },
+  { date:"2022-12-09", dateLabel:"9–11 december 2022", title:"Koben", artist:"", desc:"", tag:"Utställning" },
+  { date:"2022-12-09", title:"Vernissage – @ytligkonst", artist:"", desc:"", tag:"Utställning" },
+  { date:"2022-11-04", title:"Trött & Trumpen", artist:"Carl Brandt, Charlie Christensen, Per Demervall, Per Dunberg, Eva Fagerholm, Mikael Rundblad", desc:"kl 18", tag:"Utställning" },
+  { date:"2022-10-21", title:"Bokrelease – Tomas Omar al-Jeddahwi", artist:"", desc:"", tag:"Event" },
+  { date:"2022-09-16", title:"Hemligheter – Grupputställning", artist:"Moa Höckert, Julia Holm Koefoed, Camille Chamoun, Sara Braskamp", desc:"kl 18–22", tag:"Utställning" },
+  { date:"2022-07-01", title:"Monstrets födelseplats", artist:"", desc:"kl 16–", tag:"Event" },
+  { date:"2022-06-07", dateLabel:"7–12 juni 2022", title:"StreetArtMarket / HUGE", artist:"", desc:"", tag:"Marknad" },
+  { date:"2022-04-01", title:"Blobar & Dreads – Mark Andersson / IOH", artist:"", desc:"", tag:"Utställning" },
+  { date:"2021-12-01", dateLabel:"December 2021", title:"Det är tuft – Grupputställning (Konstfack)", artist:"Moa-Matilda Nilsson, Lynn Stenvall, Micael de Leeuw, Sanne Lovén Rolén", desc:"", tag:"Utställning" },
+  { date:"2021-11-19", dateLabel:"19–21 november 2021", title:"Utvalda verk – Daniel Karbelius", artist:"", desc:"Vernissage fredag kl 19–21.", tag:"Utställning" },
+  { date:"2019-12-07", dateLabel:"7–8 december 2019", title:"Julmarknad – Galleri Momangen", artist:"Jean La Salvia, Johanna Engdahl, Becko Ellenmar, Karolina Engdahl, Molly Abrahamsen, Jessica Hallbäck, Lovisa Rönngren, Astrid Adsten, Hop Louie, Håll Truten, Sibylla, Ivar Martinsson m.fl.", desc:"kl 11–17", tag:"Marknad" },
+  { date:"2018-12-01", dateLabel:"December 2018", title:"Julmarknad – Momangen", artist:"", desc:"", tag:"Marknad" },
+  { date:"2017-04-01", title:"Art for Momangen", artist:"Grupputställning", desc:"En kväll för att stötta verksamheten och lyfta den konstnärsdrivna scenen. Utställning, försäljning och möten mellan konstnärer och publik. Medverkande konstnärer inkluderade bland andra Ulrika Andersson, Carl Waite, Mark IOH Andersson och Jessica Hallbäck.", tag:"Event", cta:"Läs mer", link:"https://www.stockholmsfria.se/kalendarium/131338" },
+  { date:"2016-04-01", title:"Art for Aid", artist:"Grupputställning", desc:"En kväll där konst och socialt engagemang möttes genom utställning, försäljning och insamling till Habibi – ung på gatan.", tag:"Event", cta:"Läs mer", link:"https://www.stockholmsfria.se/kalendarium/131338" },
+  { date:"2015-10-05", title:"Art for Aid", artist:"Grupputställning", desc:"Insamlingsutställning där konstnärer gick samman för att stödja barn i utsatthet. Ett tidigt initiativ som samlade konstnärer och publik kring konst och solidaritet.", tag:"Event", cta:"Läs mer", link:"https://www.stockholmsfria.se/artikel/122032" },
+  { date:"2013-04-13", dateLabel:"13–14 april 2013", title:"Kocks kalaset", artist:"", desc:"Ett bakgatuäventyr på Kocksgatan. kl 12–17.", tag:"Event" },
+  { date:"2013-03-28", title:"Support Your Local – Vårmarknad", artist:"", desc:"", tag:"Marknad" }
+];
+
+var MONTHS = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+var showAll = false;
+var today = new Date();
+today.setHours(0, 0, 0, 0);
+
+function renderEvents() {
+  var list = document.getElementById('events-list');
+  list.innerHTML = '';
+
+  // Ascending base sort: oldest → newest
+  var asc = EVENTS.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+
+  // Future: nearest first (ascending); Past: most recent first (reverse of ascending)
+  var future = asc.filter(function(e) { return new Date(e.date) >= today; });
+  var past   = asc.filter(function(e) { return new Date(e.date) < today; }).reverse();
+
+  // 3 upcoming at top, then ALL past from newest → oldest
+  var toShow = future.slice(0, 3).concat(past);
+
+  if (!toShow.length) {
+    list.innerHTML = '<p style="color:var(--muted);font-size:.95rem;padding:2rem 0">Inga kommande events just nu.</p>';
+    return;
+  }
+
+  // Build year groups — order of toShow gives us: 2026 first, 2013 last
+  var byYear = {};
+  var yearOrder = [];
+  toShow.forEach(function(ev) {
+    var year = ev.date.slice(0, 4);
+    if (!byYear[year]) { byYear[year] = []; yearOrder.push(year); }
+    byYear[year].push(ev);
+  });
+
+  yearOrder.forEach(function(year) {
+    var yHead = document.createElement('p');
+    yHead.className = 'archive-year-heading';
+    yHead.textContent = year;
+    list.appendChild(yHead);
+
+    byYear[year].forEach(function(ev) {
+      var d = new Date(ev.date + 'T12:00:00');
+      var dayStr = ev.dateLabel || (d.getDate() + ' ' + MONTHS[d.getMonth()]);
+
+      var item = document.createElement('div');
+      item.className = 'archive-event';
+      if (new Date(ev.date) >= today) { item.classList.add('upcoming'); }
+
+      var html = '<p class="archive-event-title">' + ev.title + '</p>';
+      html += '<p class="archive-event-date">' + dayStr + '</p>';
+      if (ev.artist) html += '<p class="archive-event-artist">' + ev.artist + '</p>';
+      if (ev.desc)   html += '<p class="archive-event-desc">' + ev.desc + '</p>';
+      if (ev.tag)    html += '<p class="archive-event-type">' + ev.tag + '</p>';
+      if (ev.link) {
+        var ctaLabel = ev.cta || 'L\u00e4s mer';
+        html += '<a class="archive-event-link" href="' + ev.link + '"' + (ev.link.indexOf('http') === 0 ? ' target="_blank"' : '') + '>' + ctaLabel + ' \u2192</a>';
+      }
+
+      item.innerHTML = html;
+      list.appendChild(item);
+    });
+  });
+}
+
+function togglePast() {
+  showAll = !showAll;
+  renderEvents();
+}
+
+function toggleMenu() {
+  var burger = document.getElementById('burger');
+  var isOpen = burger.classList.toggle('open');
+  document.getElementById('nav-mobile').classList.toggle('open');
+  burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  burger.setAttribute('aria-label', isOpen ? 'St\u00e4ng meny' : '\u00d6ppna meny');
+}
+
+function closeMenu() {
+  var burger = document.getElementById('burger');
+  burger.classList.remove('open');
+  document.getElementById('nav-mobile').classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+  burger.setAttribute('aria-label', '\u00d6ppna meny');
+}
+
+function observeReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+}
+
+document.getElementById('burger').addEventListener('click', toggleMenu);
+document.getElementById('past-toggle').addEventListener('click', togglePast);
+document.querySelectorAll('.nav-mobile a').forEach(function(a) {
+  a.addEventListener('click', closeMenu);
+});
+
+renderEvents();
+observeReveal();
+</script>
+
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+(function() {
+  /* Render Turnstile widget after script loads */
+  window.addEventListener('load', function() {
+    var container = document.querySelector('.cf-turnstile-widget');
+    if (!container || typeof turnstile === 'undefined') return;
+    turnstile.render(container, {
+      /* Replace 0x4AAAAAACxr0xfTxguaeT7S with your real site key */
+      sitekey: container.dataset.sitekey,
+      theme: 'light',
+      size: 'flexible'
+    });
+  });
+
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var btn     = document.getElementById('cf-submit');
+    var success = document.getElementById('cf-success');
+    var error   = document.getElementById('cf-error');
+
+    success.style.display = 'none'; success.classList.remove('visible');
+    error.style.display   = 'none';
+
+    /* — Validering — */
+    var name    = form.querySelector('#cf-name');
+    var email   = form.querySelector('#cf-email');
+    var message = form.querySelector('#cf-message');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var invalid = false;
+
+    [name, email, message].forEach(function(f) { f.style.borderColor = ''; });
+
+    if (!name.value.trim()) { name.style.borderColor = 'var(--accent)'; invalid = true; }
+    if (!email.value.trim() || !emailRe.test(email.value.trim())) { email.style.borderColor = 'var(--accent)'; invalid = true; }
+    if (!message.value.trim()) { message.style.borderColor = 'var(--accent)'; invalid = true; }
+
+    if (invalid) {
+      error.textContent = 'Fyll i de markerade fälten.';
+      error.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    var data = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res) {
+      if (res.ok) {
+        form.reset();
+        if (typeof turnstile !== 'undefined') { turnstile.reset(); }
+        success.style.display = 'block';
+        requestAnimationFrame(function() { success.classList.add('visible'); });
+      } else {
+        error.style.display = 'block';
+        btn.disabled = false;
+      }
+    })
+    .catch(function() {
+      error.style.display = 'block';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
