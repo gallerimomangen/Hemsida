@@ -15,11 +15,11 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ftp.thomaskrajewski.se
-          username: BaraKonst
+          username: BaraKonst@gallerimomangen.se
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           security: loose
-          server-dir: /gallerimomangen.se/
+          server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
