@@ -18,6 +18,7 @@ jobs:
           username: BaraKonst@gallerimomangen.se
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
+          security: loose
           server-dir: /gallerimomangen.se/
           exclude: |
             **/.git*
