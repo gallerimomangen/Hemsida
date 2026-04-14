@@ -312,6 +312,30 @@
       .contact-grid { grid-template-columns: 1fr; }
       .gallery-masonry { columns: 1; }
     }
+
+    /* ─── SCROLL TO TOP ─────────────────────────────── */
+    #scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 3px;
+      border: 1.5px solid var(--border);
+      background: var(--cream);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      z-index: 900;
+    }
+    #scroll-top.visible { opacity: 1; pointer-events: auto; }
+    #scroll-top:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    #scroll-top svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
   </style>
 </head>
 <body>
@@ -480,10 +504,8 @@
 
 <script>
 /* ============================================================
-   SOURCE OF TRUTH — EVENTS
-   NÄR DU LÄGGER TILL ETT NYTT EVENT:
-   1. Lägg till ett objekt här i EVENTS-listan
-      JSON-LD genereras automatiskt från detta array.
+   EVENTS — uppdateras via admin.html.
+   JSON-LD för Google genereras automatiskt från detta array.
    ============================================================ */
 var EVENTS = [
   { date: "2026-10-01", dateLabel: "30 sep–4 okt 2026", title: "Kommande utställning", artist: "", desc: "Information publiceras löpande.", tag: "Utställning", cta: "", link: "" },
@@ -497,36 +519,6 @@ var EVENTS = [
   { date: "2015-10-05", title: "Art for Aid", artist: "Grupputställning", desc: "Insamlingsutställning där konstnärer gick samman för att stödja barn i utsatthet. Ett tidigt initiativ som samlade konstnärer och publik kring konst och solidaritet.", tag: "Event", cta: "Läs mer", link: "https://www.stockholmsfria.se/artikel/122032" }
 ];
 
-(function() {
-  var _today = new Date();
-  _today.setHours(0, 0, 0, 0);
-  var _upcoming = EVENTS.slice()
-    .filter(function(e) { return new Date(e.date) >= _today; })
-    .sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
-  if (!_upcoming.length) return;
-  var ev = _upcoming[0];
-  var schema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": ev.title,
-    "startDate": ev.date,
-    "eventStatus": "https://schema.org/EventScheduled",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "location": {
-      "@type": "Place",
-      "name": "Galleri Momangen",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Stockholm",
-        "addressCountry": "SE"
-      }
-    }
-  };
-  var s = document.createElement('script');
-  s.type = 'application/ld+json';
-  s.text = JSON.stringify(schema);
-  document.head.appendChild(s);
-})();
 
 /* ============================================================
    GALLERI-BILDER
@@ -650,5 +642,22 @@ renderEvents();
 renderGallery();
 observeReveal();
 </script>
+
+<!-- Scroll to top -->
+<button id="scroll-top" aria-label="Tillbaka till toppen">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<script>
+(function () {
+  const btn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', function () {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
 </body>
 </html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Galleri Momangen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f9f6f1;
+      --paper: #f0ebe0;
+      --ink: #1a1915;
+      --muted: #6b6660;
+      --accent: #FF5A1F;
+      --border: rgba(26,25,21,.12);
+      --green: #2d8a4e;
+      --red: #c0392b;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .admin-header {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .admin-subtitle { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: .3rem; }
+    .admin-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; line-height: 1; }
+
+    /* NOTICE */
+    .notice {
+      background: rgba(255,90,31,.07);
+      border-left: 3px solid var(--accent);
+      padding: .7rem 1rem;
+      font-size: .83rem;
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 1.5rem;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .6rem 1.2rem;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .btn-primary   { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #e04a10; }
+    .btn-secondary { background: none; border: 1.5px solid var(--ink); color: var(--ink); }
+    .btn-secondary:hover { background: var(--ink); color: var(--cream); }
+    .btn-success   { background: var(--green); color: #fff; }
+    .btn-success:hover { background: #256e3e; }
+    .btn-danger    { background: none; border: 1.5px solid var(--red); color: var(--red); font-size: .66rem; padding: .4rem .8rem; }
+    .btn-danger:hover { background: var(--red); color: #fff; }
+
+    /* SECTION LABELS */
+    .section-label {
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin: 2rem 0 .5rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* EVENT LIST */
+    .event-item {
+      border-bottom: 1px solid var(--border);
+      padding: .9rem 0;
+      display: grid;
+      grid-template-columns: 130px 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      cursor: pointer;
+      transition: background .12s;
+      border-radius: 2px;
+    }
+    .event-item:hover { background: rgba(26,25,21,.03); padding-left: .5rem; }
+    .event-item.editing { background: rgba(255,90,31,.05); padding-left: .5rem; border-bottom-color: var(--accent); }
+    .event-date-col  { font-size: .78rem; color: var(--muted); font-weight: 500; }
+    .event-title-col { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; line-height: 1.2; }
+    .event-artist-col { font-size: .8rem; color: var(--muted); margin-top: .1rem; }
+    .event-tag-col   { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); background: var(--paper); padding: .25rem .6rem; border-radius: 2px; white-space: nowrap; }
+    .event-item.upcoming .event-title-col { color: var(--accent); }
+    .event-item.upcoming .event-date-col  { color: var(--accent); font-weight: 700; }
+
+    /* EDIT FORM */
+    .edit-form {
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      padding: 1.4rem;
+      margin: .3rem 0 1rem;
+      display: none;
+    }
+    .edit-form.open { display: block; }
+    .form-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .9rem;
+      margin-bottom: 1rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: .3rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    input, select, textarea {
+      font-family: var(--sans);
+      font-size: .88rem;
+      padding: .48rem .65rem;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: #fff;
+      color: var(--ink);
+      transition: border-color .15s;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 72px; }
+    .form-hint { font-size: .68rem; color: var(--muted); margin-top: .2rem; }
+
+    .form-actions {
+      display: flex;
+      gap: .6rem;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: .5rem;
+      flex-wrap: wrap;
+    }
+    .form-actions .spacer { flex: 1; }
+
+    /* EXPORT */
+    .export-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--ink);
+    }
+    .export-heading { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; margin-bottom: .5rem; }
+    .export-intro { font-size: .88rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.7; }
+    .export-steps {
+      background: var(--paper);
+      border-radius: 4px;
+      padding: .9rem 1.2rem;
+      margin-bottom: 1.2rem;
+      font-size: .84rem;
+      line-height: 1.9;
+    }
+    .export-steps ol { padding-left: 1.2rem; }
+    .export-steps code { background: rgba(26,25,21,.08); padding: .1rem .35rem; border-radius: 2px; font-size: .82rem; }
+    .export-actions { display: flex; gap: .7rem; align-items: center; flex-wrap: wrap; margin-bottom: .8rem; }
+    .export-code {
+      font-family: 'Courier New', monospace;
+      font-size: .76rem;
+      background: var(--ink);
+      color: #f0ebe0;
+      padding: 1.2rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.65;
+      max-height: 320px;
+      overflow-y: auto;
+      display: none;
+    }
+    .export-code.open { display: block; }
+    .copy-confirm { font-size: .78rem; color: var(--green); font-weight: 700; display: none; }
+
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .event-item { grid-template-columns: 90px 1fr; }
+      .event-tag-col { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-header">
+  <div>
+    <p class="admin-subtitle">Galleri Momangen</p>
+    <h1 class="admin-title">Eventhantering</h1>
+  </div>
+  <button class="btn btn-primary" onclick="toggleNew()">+ Lägg till event</button>
+</div>
+
+<div class="notice">
+  Klicka på ett event för att redigera det. Tryck <strong>"Generera"</strong> längst ned när du är klar — du får ut EVENTS-kod och JSON-LD som du klistrar in i GitHub.
+</div>
+
+<!-- NYTT EVENT FORMULÄR -->
+<div class="edit-form" id="new-form">
+  <p class="form-title">Nytt event</p>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Datum *</label>
+      <input type="date" id="new-date">
+    </div>
+    <div class="form-group">
+      <label>Datumtext (valfri)</label>
+      <input type="text" id="new-dateLabel" placeholder="T.ex. 25–27 september 2026">
+      <span class="form-hint">Lämna tomt för automatiskt datum</span>
+    </div>
+    <div class="form-group">
+      <label>Titel *</label>
+      <input type="text" id="new-title" placeholder="T.ex. Vernissage – IOH">
+    </div>
+    <div class="form-group">
+      <label>Artist / Medverkande</label>
+      <input type="text" id="new-artist" placeholder="T.ex. IOH">
+    </div>
+    <div class="form-group full">
+      <label>Beskrivning</label>
+      <textarea id="new-desc" placeholder="Kort beskrivning av eventet..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Typ</label>
+      <select id="new-tag">
+        <option value="Utställning">Utställning</option>
+        <option value="Vernissage">Vernissage</option>
+        <option value="Event">Event</option>
+        <option value="Marknad">Marknad</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Länktext</label>
+      <input type="text" id="new-cta" placeholder="T.ex. Läs mer">
+    </div>
+    <div class="form-group full">
+      <label>Länk (URL)</label>
+      <input type="url" id="new-link" placeholder="https://...">
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-success" onclick="saveNew()">Spara event</button>
+    <button class="btn btn-secondary" onclick="toggleNew()">Avbryt</button>
+  </div>
+</div>
+
+<!-- EVENT LISTA -->
+<div id="events-container"></div>
+
+<!-- EXPORT -->
+<div class="export-section">
+  <h2 class="export-heading">Exportera och publicera</h2>
+  <p class="export-intro">
+    Generera koden nedan. Klistra in varje block på rätt ställe i <code style="background:rgba(26,25,21,.08);padding:.1rem .35rem;border-radius:2px;font-size:.82rem;">index.html</code> och <code style="background:rgba(26,25,21,.08);padding:.1rem .35rem;border-radius:2px;font-size:.82rem;">vernissage-stockholm.html</code> på GitHub.
+  </p>
+  <div class="export-steps">
+    <ol>
+      <li>Tryck <strong>"Generera"</strong></li>
+      <li><strong>Block 1</strong> → ersätt <code>var EVENTS = [...];</code> i båda filerna</li>
+      <li><strong>Block 2</strong> → ersätt <code>&lt;script type="application/ld+json"&gt;...&lt;/script&gt;</code>-blocket i <code>&lt;head&gt;</code> i båda filerna</li>
+      <li>Commit i GitHub → sidan uppdateras automatiskt</li>
+    </ol>
+  </div>
+  <div class="export-actions">
+    <button class="btn btn-primary" onclick="generateCode()">Generera</button>
+  </div>
+
+  <div id="block-events" style="display:none;margin-top:1.2rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
+      <span style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);">Block 1 — EVENTS · klistra in i båda filerna</span>
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <button class="btn btn-secondary" onclick="copyBlock('export-events','confirm-events')">Kopiera</button>
+        <span class="copy-confirm" id="confirm-events">✓ Kopierat!</span>
+      </div>
+    </div>
+    <div class="export-code open" id="export-events"></div>
+  </div>
+
+  <div id="block-jsonld" style="display:none;margin-top:1.2rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
+      <span style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);">Block 2 — JSON-LD · klistra in i &lt;head&gt; i båda filerna</span>
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <button class="btn btn-secondary" onclick="copyBlock('export-jsonld','confirm-jsonld')">Kopiera</button>
+        <span class="copy-confirm" id="confirm-jsonld">✓ Kopierat!</span>
+      </div>
+    </div>
+    <div class="export-code open" id="export-jsonld"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// EVENTS — synkad med index.html
+// Uppdatera denna lista om du lägger till event direkt i GitHub
+// ============================================================
+var EVENTS = [
+  { date: "2026-10-01", dateLabel: "30 sep–4 okt 2026", title: "Kommande utställning", artist: "", desc: "Information publiceras löpande.", tag: "Utställning", cta: "", link: "" },
+  { date: "2026-09-25", dateLabel: "25–27 september 2026", title: "Utställning – IOH", artist: "IOH", desc: "", tag: "Utställning", cta: "", link: "" },
+  { date: "2026-05-30", dateLabel: "Slutet av maj 2026", title: "Vernissage", artist: "", desc: "Datum meddelas. Mer information kommer.", tag: "Vernissage", cta: "", link: "" },
+  { date: "2026-01-31", title: "Mayhem – Pre-listening session", artist: "Mayhem", desc: "Pre-listening session för Liturgy of Death. 31 januari kl 19:00.", tag: "Event", cta: "", link: "" },
+  { date: "2025-11-01", title: "Vernissage", artist: "Grupputställning", desc: "Vernissage kl 13–21. Utställning 2 november kl 13–17.", tag: "Utställning", cta: "", link: "" },
+  { date: "2025-04-04", title: "Koben på Momangen #5", artist: "Koben", desc: "Vernissage kl 17:00. Utställning 4–6 april 2025.", tag: "Vernissage", cta: "", link: "" },
+  { date: "2017-04-01", title: "Art for Momangen", artist: "Grupputställning", desc: "En kväll för att stötta verksamheten och lyfta den konstnärsdrivna scenen. Utställning, försäljning och möten mellan konstnärer och publik. Medverkande konstnärer inkluderade bland andra Ulrika Andersson, Carl Waite, Mark IOH Andersson och Jessica Hallbäck.", tag: "Event", cta: "Läs mer", link: "https://www.stockholmsfria.se/kalendarium/131338" },
+  { date: "2016-04-01", title: "Art for Aid", artist: "Grupputställning", desc: "En kväll där konst och socialt engagemang möttes genom utställning, försäljning och insamling till Habibi – ung på gatan.", tag: "Event", cta: "Läs mer", link: "https://www.stockholmsfria.se/kalendarium/131338" },
+  { date: "2015-10-05", title: "Art for Aid", artist: "Grupputställning", desc: "Insamlingsutställning där konstnärer gick samman för att stödja barn i utsatthet. Ett tidigt initiativ som samlade konstnärer och publik kring konst och solidaritet.", tag: "Event", cta: "Läs mer", link: "https://www.stockholmsfria.se/artikel/122032" }
+];
+
+// ============================================================
+var today = new Date(); today.setHours(0,0,0,0);
+var editingIndex = -1;
+var newFormOpen = false;
+
+var MONTHS = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+
+function isUpcoming(ev) { return new Date(ev.date + 'T12:00:00') >= today; }
+
+function formatDate(d) {
+  var dt = new Date(d + 'T12:00:00');
+  return dt.getDate() + ' ' + MONTHS[dt.getMonth()] + ' ' + dt.getFullYear();
+}
+
+function renderList() {
+  var container = document.getElementById('events-container');
+  var sorted = EVENTS.slice().sort(function(a,b){ return new Date(b.date)-new Date(a.date); });
+  var upcoming = sorted.filter(isUpcoming);
+  var past = sorted.filter(function(e){ return !isUpcoming(e); });
+  var html = '';
+
+  if (upcoming.length) {
+    html += '<p class="section-label">Kommande (' + upcoming.length + ')</p>';
+    upcoming.forEach(function(ev) { html += buildItem(ev, EVENTS.indexOf(ev), true); });
+  }
+  if (past.length) {
+    html += '<p class="section-label">Tidigare (' + past.length + ')</p>';
+    past.forEach(function(ev) { html += buildItem(ev, EVENTS.indexOf(ev), false); });
+  }
+  container.innerHTML = html;
+}
+
+function buildItem(ev, idx, upcoming) {
+  var cls = 'event-item' + (upcoming ? ' upcoming' : '') + (editingIndex === idx ? ' editing' : '');
+  var dateDisplay = ev.dateLabel || formatDate(ev.date);
+  var out = '<div class="' + cls + '" onclick="editEvent(' + idx + ')">' +
+    '<div class="event-date-col">' + esc(dateDisplay) + '</div>' +
+    '<div><div class="event-title-col">' + esc(ev.title) + '</div>' +
+    (ev.artist ? '<div class="event-artist-col">' + esc(ev.artist) + '</div>' : '') + '</div>' +
+    '<span class="event-tag-col">' + esc(ev.tag) + '</span>' +
+    '</div>';
+  if (editingIndex === idx) out += buildEditForm(ev, idx);
+  return out;
+}
+
+function buildEditForm(ev, idx) {
+  var p = 'f' + idx;
+  return '<div class="edit-form open">' +
+    '<p class="form-title">Redigera event</p>' +
+    '<div class="form-grid">' +
+    fg('Datum', '<input type="date" id="' + p + '-date" value="' + ea(ev.date) + '">') +
+    fg('Datumtext (valfri)', '<input type="text" id="' + p + '-dateLabel" value="' + ea(ev.dateLabel||'') + '" placeholder="T.ex. 25–27 september 2026"><span class="form-hint">Lämna tomt för automatiskt datum</span>') +
+    fg('Titel', '<input type="text" id="' + p + '-title" value="' + ea(ev.title) + '">') +
+    fg('Artist / Medverkande', '<input type="text" id="' + p + '-artist" value="' + ea(ev.artist||'') + '">') +
+    '<div class="form-group full"><label>Beskrivning</label><textarea id="' + p + '-desc">' + esc(ev.desc||'') + '</textarea></div>' +
+    '<div class="form-group"><label>Typ</label><select id="' + p + '-tag">' +
+    ['Utställning','Vernissage','Event','Marknad'].map(function(t){ return '<option value="'+t+'"'+(ev.tag===t?' selected':'')+'>'+t+'</option>'; }).join('') +
+    '</select></div>' +
+    fg('Länktext', '<input type="text" id="' + p + '-cta" value="' + ea(ev.cta||'') + '" placeholder="T.ex. Läs mer">') +
+    '<div class="form-group full"><label>Länk (URL)</label><input type="url" id="' + p + '-link" value="' + ea(ev.link||'') + '" placeholder="https://..."></div>' +
+    '</div>' +
+    '<div class="form-actions">' +
+    '<button class="btn btn-success" onclick="saveEdit(' + idx + ');event.stopPropagation()">Spara ändringar</button>' +
+    '<button class="btn btn-secondary" onclick="cancelEdit();event.stopPropagation()">Avbryt</button>' +
+    '<span class="spacer"></span>' +
+    '<button class="btn btn-danger" onclick="deleteEvent(' + idx + ');event.stopPropagation()">Ta bort</button>' +
+    '</div></div>';
+}
+
+function fg(labelText, inputHtml) {
+  return '<div class="form-group"><label>' + labelText + '</label>' + inputHtml + '</div>';
+}
+
+function editEvent(idx) {
+  editingIndex = (editingIndex === idx) ? -1 : idx;
+  if (newFormOpen) toggleNew();
+  renderList();
+  clearExport();
+}
+
+function cancelEdit() { editingIndex = -1; renderList(); }
+
+function saveEdit(idx) {
+  var p = 'f' + idx;
+  var date = document.getElementById(p+'-date').value;
+  var title = document.getElementById(p+'-title').value.trim();
+  if (!date || !title) { alert('Datum och titel måste fyllas i.'); return; }
+  EVENTS[idx] = {
+    date: date,
+    dateLabel: document.getElementById(p+'-dateLabel').value,
+    title: title,
+    artist: document.getElementById(p+'-artist').value,
+    desc: document.getElementById(p+'-desc').value,
+    tag: document.getElementById(p+'-tag').value,
+    cta: document.getElementById(p+'-cta').value,
+    link: document.getElementById(p+'-link').value
+  };
+  editingIndex = -1;
+  renderList();
+  clearExport();
+  showSaved();
+}
+
+function deleteEvent(idx) {
+  if (!confirm('Ta bort "' + EVENTS[idx].title + '"?\nDetta går inte att ångra i admin-sidan.')) return;
+  EVENTS.splice(idx, 1);
+  editingIndex = -1;
+  renderList();
+  clearExport();
+}
+
+function toggleNew() {
+  newFormOpen = !newFormOpen;
+  var form = document.getElementById('new-form');
+  if (newFormOpen) {
+    form.classList.add('open');
+    editingIndex = -1;
+    renderList();
+    clearFields();
+    document.getElementById('new-date').focus();
+  } else {
+    form.classList.remove('open');
+  }
+}
+
+function clearFields() {
+  ['date','dateLabel','title','artist','desc','cta','link'].forEach(function(f){
+    var el = document.getElementById('new-'+f);
+    if (el) el.value = '';
+  });
+  document.getElementById('new-tag').value = 'Utställning';
+}
+
+function saveNew() {
+  var date = document.getElementById('new-date').value;
+  var title = document.getElementById('new-title').value.trim();
+  if (!date || !title) { alert('Datum och titel måste fyllas i.'); return; }
+  EVENTS.push({
+    date: date,
+    dateLabel: document.getElementById('new-dateLabel').value,
+    title: title,
+    artist: document.getElementById('new-artist').value,
+    desc: document.getElementById('new-desc').value,
+    tag: document.getElementById('new-tag').value,
+    cta: document.getElementById('new-cta').value,
+    link: document.getElementById('new-link').value
+  });
+  newFormOpen = false;
+  document.getElementById('new-form').classList.remove('open');
+  renderList();
+  clearExport();
+  showSaved();
+}
+
+function generateCode() {
+  // Block 1: EVENTS array
+  var sorted = EVENTS.slice().sort(function(a,b){ return new Date(b.date)-new Date(a.date); });
+  var lines = sorted.map(function(ev, i) {
+    var parts = ['date: "' + ev.date + '"'];
+    if (ev.dateLabel) parts.push('dateLabel: "' + (ev.dateLabel||'').replace(/"/g,'\\"') + '"');
+    parts.push('title: "' + (ev.title||'').replace(/"/g,'\\"') + '"');
+    parts.push('artist: "' + (ev.artist||'').replace(/"/g,'\\"') + '"');
+    parts.push('desc: "' + (ev.desc||'').replace(/"/g,'\\"') + '"');
+    parts.push('tag: "' + (ev.tag||'') + '"');
+    parts.push('cta: "' + (ev.cta||'') + '"');
+    parts.push('link: "' + (ev.link||'') + '"');
+    return '  { ' + parts.join(', ') + ' }' + (i < sorted.length-1 ? ',' : '');
+  });
+  document.getElementById('export-events').textContent = 'var EVENTS = [\n' + lines.join('\n') + '\n];';
+  document.getElementById('block-events').style.display = 'block';
+
+  // Block 2: Static JSON-LD for 3 nearest upcoming events
+  var upcoming = EVENTS.slice()
+    .filter(function(e){ return new Date(e.date+'T12:00:00') >= today; })
+    .sort(function(a,b){ return new Date(a.date)-new Date(b.date); })
+    .slice(0,3);
+  var graph = upcoming.map(function(ev) {
+    var desc = (ev.desc && ev.desc.trim()) ? ev.desc : ev.title + ' på Galleri Momangen i Stockholm.';
+    return {
+      "@type": "Event",
+      "name": ev.title,
+      "startDate": ev.date,
+      "description": desc,
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "url": "https://gallerimomangen.se/vernissage-stockholm",
+      "location": {
+        "@type": "Place",
+        "name": "Galleri Momangen",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Kocksgatan 23",
+          "postalCode": "116 24",
+          "addressLocality": "Stockholm",
+          "addressCountry": "SE"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Galleri Momangen",
+        "url": "https://gallerimomangen.se/"
+      }
+    };
+  });
+  var jsonld = { "@context": "https://schema.org", "@graph": graph };
+  document.getElementById('export-jsonld').textContent =
+    '<!-- Upcoming events structured data — update when EVENTS changes -->\n' +
+    '<script type="application/ld+json">\n' +
+    JSON.stringify(jsonld, null, 2) +
+    '\n<\/script>';
+  document.getElementById('block-jsonld').style.display = 'block';
+}
+
+function copyBlock(codeId, confirmId) {
+  navigator.clipboard.writeText(document.getElementById(codeId).textContent).then(function() {
+    var c = document.getElementById(confirmId);
+    c.style.display = 'inline-block';
+    setTimeout(function(){ c.style.display = 'none'; }, 3000);
+  });
+}
+
+function clearExport() {
+  document.getElementById('block-events').style.display = 'none';
+  document.getElementById('block-jsonld').style.display = 'none';
+}
+
+function showSaved() {
+  var notice = document.createElement('div');
+  notice.style.cssText = 'position:fixed;top:1.5rem;right:1.5rem;background:var(--green);color:#fff;padding:.7rem 1.2rem;border-radius:4px;font-size:.82rem;font-weight:700;letter-spacing:.06em;z-index:999;';
+  notice.textContent = '✓ Sparat i admin';
+  document.body.appendChild(notice);
+  setTimeout(function(){ notice.remove(); }, 2500);
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function ea(s)  { return (s||'').replace(/"/g,'&quot;'); }
+
+renderList();
+</script>
+</body>
+</html>
